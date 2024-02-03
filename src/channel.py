@@ -16,6 +16,34 @@ class Channel:
         self.__channel_id = channel_id
         self.channel = self.__youtube.channels().list(id=self.__channel_id, part='snippet,statistics').execute()
 
+    def __str__(self):
+        """Возвращает название канала и ссылку на канал"""
+        return f"'{self.title} ({self.url})'"
+
+    def __add__(self, other):
+        return int(self.channel['items'][0]['statistics']["videoCount"]) + int(other.channel['items'][0]['statistics'][
+            "videoCount"])
+
+    def __sub__(self, other):
+        return int(self.channel['items'][0]['statistics']["videoCount"]) - int(other.channel['items'][0]['statistics'][
+            "videoCount"])
+
+    def __gt__(self, other):
+        return self.channel['items'][0]['statistics']["videoCount"] > other.channel['items'][0]['statistics'][
+            "videoCount"]
+
+    def __ge__(self, other):
+        return self.channel['items'][0]['statistics']["videoCount"] >= other.channel['items'][0]['statistics'][
+            "videoCount"]
+
+    def __lt__(self, other):
+        return self.channel['items'][0]['statistics']["videoCount"] < other.channel['items'][0]['statistics'][
+            "videoCount"]
+
+    def __le__(self, other):
+        return self.channel['items'][0]['statistics']["videoCount"] <= other.channel['items'][0]['statistics'][
+            "videoCount"]
+
     def print_info(self) -> None:
         """Выводит в консоль информацию о канале."""
         pprint(json.dumps(self.channel, indent=2, ensure_ascii=False))
