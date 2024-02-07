@@ -4,7 +4,7 @@ from pprint import pprint
 
 from googleapiclient.discovery import build
 
-API_KEY = os.getenv('API_KEY_YT_LEARN')
+API_KEY: str = os.getenv('API_KEY_YT_LEARN')
 
 
 class Channel:
